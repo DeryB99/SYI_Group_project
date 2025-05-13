@@ -1,0 +1,34 @@
+shop,product,category,quantity,price,benefits,time_of_sale
+Salzburg,Microwave,Electronics,3,87.6,22.14,2025-05-13T20:02:22.362922+00:00
+Wien_1st_district,Phone,Electronics,4,41.82,13.73,2025-05-13T20:02:43.391617+00:00
+Graz,Television,Electronics,2,41.15,14.09,2025-05-13T20:02:33.130990+00:00
+Salzburg,Washing Machine,Electronics,4,90.75,65.66,2025-05-13T20:02:25.851951+00:00
+Graz,Nightstand,Furniture,7,77.95,51.91,2025-05-13T20:02:32.588439+00:00
+Graz,Desk,Furniture,5,63.88,35.89,2025-05-13T20:02:38.812840+00:00
+Wien_1st_district,Bed,Furniture,11,64.34,60.84,2025-05-13T20:02:22.729404+00:00
+Graz,Wardrobe,Furniture,19,23.43,8.21,2025-05-13T20:02:47.410654+00:00
+Graz,Couch,Furniture,13,31.24,28.54,2025-05-13T20:02:06.718502+00:00
+Graz,Dining Table,Furniture,10,71.07,16.09,2025-05-13T20:02:11.053978+00:00
+Wien_1st_district,Shelf,Furniture,12,90.18,26.73,2025-05-13T20:02:43.628376+00:00
+Salzburg,Ottoman,Furniture,13,44.92,8.46,2025-05-13T20:02:15.628413+00:00
+Linz,Book,Books,6,12.96,7.8,2025-05-13T20:02:14.370804+00:00
+Salzburg,Journal,Books,4,31.71,2.14,2025-05-13T20:02:25.290723+00:00
+Salzburg,Magazine,Books,8,75.34,8.45,2025-05-13T20:02:50.128850+00:00
+Graz,Glue,Office,19,98.98,96.95,2025-05-13T20:02:04.827702+00:00
+Graz,File Cabinet,Office,9,54.2,28.29,2025-05-13T20:02:39.742829+00:00
+Salzburg,Fax Machine,Office,4,47.12,17.18,2025-05-13T20:02:51.308998+00:00
+Linz,Highlighter,Office,19,29.44,4.53,2025-05-13T20:02:45.642953+00:00
+Linz,Marker,Office,16,57.25,41.14,2025-05-13T20:02:22.510618+00:00
+Wien_1st_district,Tape Dispenser,Office,15,70.89,33.2,2025-05-13T20:02:56.568817+00:00
+Salzburg,Scanner,Office,19,79.13,9.19,2025-05-13T20:02:13.342102+00:00
+Linz,Paper Clips,Office,2,52.25,45.52,2025-05-13T20:02:13.523825+00:00
+Graz,Headphones,Accessories,18,35.05,19.49,2025-05-13T20:02:46.150076+00:00
+Graz,Mouse,Accessories,9,40.93,18.79,2025-05-13T20:02:16.552297+00:00
+Wien_1st_district,Monitor,Accessories,11,70.02,65.59,2025-05-13T20:02:59.460168+00:00
+Linz,Webcam,Accessories,14,65.09,19.35,2025-05-13T20:02:27.647497+00:00
+Wien_1st_district,Charger,Accessories,5,53.17,11.7,2025-05-13T20:02:19.423176+00:00
+Wien_1st_district,Keyboard,Accessories,15,67.58,50.75,2025-05-13T20:02:55.346841+00:00
+Linz,Microphone,Accessories,15,88.94,75.21,2025-05-13T20:02:33.009364+00:00
+Salzburg,Speaker,Accessories,4,72.94,52.72,2025-05-13T20:02:08.023818+00:00
+Wien_1st_district,USB Hub,Accessories,13,46.8,31.05,2025-05-13T20:02:47.629807+00:00
+Linz,Cable Organizer,Accessories,12,39.01,3.55,2025-05-13T20:02:44.511733+00:00
