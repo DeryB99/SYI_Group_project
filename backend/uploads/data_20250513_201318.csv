@@ -1,0 +1,28 @@
+shop,product,category,quantity,price,benefits,time_of_sale
+Linz,Tablet,Electronics,17,80.0,31.81,2025-05-13T20:13:15.166732+00:00
+Salzburg,Television,Electronics,1,84.28,56.18,2025-05-13T20:12:57.220999+00:00
+Wien_1st_district,Refrigerator,Electronics,17,3.98,1.85,2025-05-13T20:12:39.313876+00:00
+Salzburg,Washing Machine,Electronics,12,63.86,15.8,2025-05-13T20:12:52.940481+00:00
+Salzburg,Phone,Electronics,15,84.36,76.6,2025-05-13T20:12:43.355322+00:00
+Wien_1st_district,Bed,Furniture,4,13.93,1.92,2025-05-13T20:12:26.513523+00:00
+Wien_1st_district,Nightstand,Furniture,12,56.31,1.96,2025-05-13T20:13:16.756077+00:00
+Linz,Wardrobe,Furniture,11,25.78,6.2,2025-05-13T20:12:49.058580+00:00
+Graz,Couch,Furniture,8,48.48,13.99,2025-05-13T20:13:00.577171+00:00
+Wien_1st_district,Magazine,Books,18,9.06,4.32,2025-05-13T20:13:08.507619+00:00
+Linz,Journal,Books,13,11.17,3.0,2025-05-13T20:12:31.818455+00:00
+Graz,Book,Books,16,31.08,10.06,2025-05-13T20:12:43.608202+00:00
+Linz,Highlighter,Office,20,80.82,6.87,2025-05-13T20:12:48.466531+00:00
+Wien_1st_district,Binder,Office,10,99.81,61.33,2025-05-13T20:12:53.118301+00:00
+Graz,Glue,Office,17,10.74,9.06,2025-05-13T20:12:36.207681+00:00
+Wien_1st_district,Marker,Office,9,81.14,29.53,2025-05-13T20:12:45.630180+00:00
+Salzburg,Desk Organizer,Office,19,50.87,21.46,2025-05-13T20:12:38.822797+00:00
+Linz,Paper Clips,Office,20,43.94,6.34,2025-05-13T20:12:47.170273+00:00
+Graz,Envelope,Office,13,50.23,4.96,2025-05-13T20:13:00.540905+00:00
+Salzburg,Calculator,Office,12,93.42,41.13,2025-05-13T20:12:58.075695+00:00
+Wien_1st_district,File Cabinet,Office,4,48.75,4.02,2025-05-13T20:13:17.144366+00:00
+Linz,Monitor,Accessories,13,81.09,32.22,2025-05-13T20:13:03.148684+00:00
+Linz,Cable Organizer,Accessories,11,90.21,19.11,2025-05-13T20:12:54.943245+00:00
+Wien_1st_district,Speaker,Accessories,20,48.17,5.37,2025-05-13T20:13:06.963335+00:00
+Wien_1st_district,USB Hub,Accessories,16,11.03,2.72,2025-05-13T20:13:18.815335+00:00
+Graz,Charger,Accessories,3,83.7,55.82,2025-05-13T20:12:22.797459+00:00
+Graz,Webcam,Accessories,1,68.98,9.92,2025-05-13T20:12:20.951376+00:00
