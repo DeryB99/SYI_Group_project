@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar, Pie, Radar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   BarElement,
@@ -9,6 +9,9 @@ import {
   ArcElement,
   Tooltip,
   Legend,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
 } from "chart.js";
 import SalesList from "./components/SalesLists";
 import MainContainer from "./components/MainContainer";
@@ -22,13 +25,17 @@ ChartJS.register(
   LinearScale,
   ArcElement,
   Tooltip,
-  Legend
+  Legend,
+  RadialLinearScale,
+  PointElement,
+  LineElement
 );
 
 export default function App() {
   const [sales, setSales] = useState([]);
   const [stats, setStats] = useState({});
   const [selectedShop, setSelectedShop] = useState("All");
+  const [showAll, setShowAll] = useState(true);
 
   const shops = useMemo(() => {
     const unique = Array.from(new Set(sales.map((sale) => sale.shop)));
@@ -64,6 +71,36 @@ export default function App() {
     console.log("Sales data:", sales);
     console.log("Stats data:", stats);
   }, [sales, stats]);
+
+  const categories = Array.from(
+    new Set(
+      sales
+        .filter((sale) => selectedShop === "All" || sale.shop === selectedShop)
+        .map((sale) => sale.category)
+    )
+  );
+
+  const priceData = categories.map((category) =>
+    sales
+      .filter(
+        (sale) =>
+          (selectedShop === "All" || sale.shop === selectedShop) &&
+          sale.category === category
+      )
+      .reduce((sum, sale) => sum + sale.price, 0)
+  );
+
+  const benefitsData = categories.map((category) =>
+    sales
+      .filter(
+        (sale) =>
+          (selectedShop === "All" || sale.shop === selectedShop) &&
+          sale.category === category
+      )
+      .reduce((sum, sale) => sum + sale.benefit, 0)
+  );
+
+  console.log({ categories, priceData, benefitsData });
 
   return (
     <SalesStatsContext.Provider value={{ sales, stats }}>
@@ -171,6 +208,96 @@ export default function App() {
                   </select>
                 </div>
               </div>
+              <h2 style={{ marginBottom: "1rem" }}>
+                Sales Records for {selectedShop}
+                {selectedShop !== "All" && (
+                  <span className="text-gray-500">
+                    {" "}
+                    ({sales.filter((sale) => sale.shop === selectedShop).length}
+                    records)
+                  </span>
+                )}
+              </h2>
+              <AlignedContainer>
+                <Radar
+                  data={{
+                    labels: Array.from(
+                      new Set(
+                        sales
+                          .filter(
+                            (sale) =>
+                              selectedShop === "All" ||
+                              sale.shop === selectedShop
+                          )
+                          .map((sale) => sale.category)
+                      )
+                    ),
+                    datasets: [
+                      {
+                        label: "Total Price by Category",
+                        data: Array.from(
+                          new Set(
+                            sales
+                              .filter(
+                                (sale) =>
+                                  selectedShop === "All" ||
+                                  sale.shop === selectedShop
+                              )
+                              .map((sale) => sale.category)
+                          )
+                        ).map((category) =>
+                          sales
+                            .filter(
+                              (sale) =>
+                                (selectedShop === "All" ||
+                                  sale.shop === selectedShop) &&
+                                sale.category === category
+                            )
+                            .reduce((sum, sale) => sum + sale.price, 0)
+                        ),
+                        backgroundColor: "rgba(75, 192, 192, 0.2)",
+                        borderColor: "rgba(75, 192, 192, 1)",
+                        borderWidth: 1,
+                      },
+                      {
+                        label: "Total Benefits by Category",
+                        data: Array.from(
+                          new Set(
+                            sales
+                              .filter(
+                                (sale) =>
+                                  selectedShop === "All" ||
+                                  sale.shop === selectedShop
+                              )
+                              .map((sale) => sale.category)
+                          )
+                        ).map((category) =>
+                          sales
+                            .filter(
+                              (sale) =>
+                                (selectedShop === "All" ||
+                                  sale.shop === selectedShop) &&
+                                sale.category === category
+                            )
+                            .reduce((sum, sale) => sum + sale.benefits, 0)
+                        ),
+                        backgroundColor: "rgba(255, 99, 132, 0.2)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 1,
+                      },
+                    ],
+                  }}
+                  options={{
+                    responsive: true,
+                    plugins: { legend: { position: "top" } },
+                    scales: {
+                      r: {
+                        beginAtZero: true,
+                      },
+                    },
+                  }}
+                />
+              </AlignedContainer>
             </>
           }
         />
