@@ -26,12 +26,43 @@ const sequelize = new Sequelize(
   }
 );
 
-const ProductData = sequelize.define("ProductData", {
-  product: DataTypes.STRING,
-  category: DataTypes.STRING,
-  quantity: DataTypes.INTEGER,
-  price: DataTypes.FLOAT,
-});
+const Sale = sequelize.define(
+  "Sale",
+  {
+    shop: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    product: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    price: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    benefits: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    time_of_sale: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+  },
+  {
+    tableName: "sales",
+    timestamps: false,
+  }
+);
 
 const uploadDir = path.join(__dirname, "uploads");
 
@@ -48,18 +79,29 @@ const processCSVFiles = () => {
         fs.createReadStream(filePath)
           .pipe(csv())
           .on("data", (data) => {
-            if (data.product && data.category && data.quantity && data.price) {
+            if (
+              data.product &&
+              data.category &&
+              data.quantity &&
+              data.price &&
+              data.benefits &&
+              data.time_of_sale &&
+              data.shop
+            ) {
               records.push({
+                shop: data.shop,
                 product: data.product,
                 category: data.category,
-                quantity: parseInt(data.quantity),
+                quantity: parseInt(data.quantity, 10),
                 price: parseFloat(data.price),
+                benefits: parseFloat(data.benefits),
+                time_of_sale: new Date(data.time_of_sale),
               });
             }
           })
           .on("end", async () => {
             try {
-              await ProductData.bulkCreate(records);
+              await Sale.bulkCreate(records);
               console.log(`Inserted ${records.length} records from ${file}`);
               fs.unlinkSync(filePath);
             } catch (error) {
@@ -79,43 +121,48 @@ processCSVFiles();
 
 app.get("/stats", async (req, res) => {
   try {
-    const totalRevenue = await ProductData.findAll({
-      attributes: [[sequelize.literal("SUM(quantity * price)"), "revenue"]],
+    // Chiffre d'affaires total
+    const revenueRes = await Sale.findAll({
+      attributes: [
+        [sequelize.literal("SUM(quantity * price)"), "totalRevenue"],
+      ],
+      raw: true,
     });
+    const totalRevenue = parseFloat(revenueRes[0].totalRevenue) || 0;
 
-    const avgResult = await ProductData.findOne({
+    // Prix moyen
+    const avgRes = await Sale.findAll({
       attributes: [[sequelize.fn("AVG", sequelize.col("price")), "avgPrice"]],
       raw: true,
     });
-    const averagePrice = parseFloat(avgResult.avgPrice || 0).toFixed(2);
+    const averagePrice = parseFloat(avgRes[0].avgPrice).toFixed(2);
 
-    const topCategory = await ProductData.findAll({
+    // Catégorie vendue la plus (quantité)
+    const topCategoryRes = await Sale.findAll({
       attributes: [
         "category",
         [sequelize.fn("SUM", sequelize.col("quantity")), "qty"],
       ],
       group: ["category"],
-      order: [[sequelize.fn("SUM", sequelize.col("quantity")), "DESC"]],
+      order: [[sequelize.literal("qty"), "DESC"]],
       limit: 1,
+      raw: true,
     });
+    const topCategory = topCategoryRes[0]?.category || "N/A";
 
-    res.json({
-      totalRevenue: totalRevenue[0].dataValues.revenue || 0,
-      averagePrice,
-      topCategory: topCategory[0]?.category || "N/A",
-    });
+    res.json({ totalRevenue, averagePrice, topCategory });
   } catch (err) {
     console.error("[STATS ERROR]", err);
     res.status(500).json({ error: err.message });
   }
 });
 
-app.get("/products", async (req, res) => {
+app.get("/sales", async (req, res) => {
   try {
-    const products = await ProductData.findAll();
-    res.json(products);
+    const sales = await Sale.findAll({ order: [["time_of_sale", "DESC"]] });
+    res.json(sales);
   } catch (err) {
-    console.error("[PRODUCTS ERROR]", err);
+    console.error("[SALES ERROR]", err);
     res.status(500).json({ error: err.message });
   }
 });
