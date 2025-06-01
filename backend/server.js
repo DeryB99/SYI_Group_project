@@ -121,7 +121,6 @@ processCSVFiles();
 
 app.get("/stats", async (req, res) => {
   try {
-    // Chiffre d'affaires total
     const revenueRes = await Sale.findAll({
       attributes: [
         [sequelize.literal("SUM(quantity * price)"), "totalRevenue"],
@@ -130,14 +129,12 @@ app.get("/stats", async (req, res) => {
     });
     const totalRevenue = parseFloat(revenueRes[0].totalRevenue) || 0;
 
-    // Prix moyen
     const avgRes = await Sale.findAll({
       attributes: [[sequelize.fn("AVG", sequelize.col("price")), "avgPrice"]],
       raw: true,
     });
     const averagePrice = parseFloat(avgRes[0].avgPrice).toFixed(2);
 
-    // Catégorie vendue la plus (quantité)
     const topCategoryRes = await Sale.findAll({
       attributes: [
         "category",

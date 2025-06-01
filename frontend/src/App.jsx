@@ -238,121 +238,6 @@ export default function App() {
             <strong>Top Category:</strong> {stats.topCategory}
           </p>
         </div>
-        <MainContainer
-          children={
-            <>
-              <h2 style={{ marginBottom: "1rem" }}>Global Sales Records</h2>
-              <SalesList />
-
-              <AlignedContainer>
-                <Bar
-                  data={{
-                    labels: categories,
-                    datasets: [
-                      {
-                        label: "Average Price",
-                        data: categories.map((category) => {
-                          const catSales = sales.filter(
-                            (sale) => sale.category === category
-                          );
-                          return catSales.length
-                            ? catSales.reduce(
-                                (sum, sale) => sum + sale.price,
-                                0
-                              ) / catSales.length
-                            : 0;
-                        }),
-                        backgroundColor: "#42a5f5",
-                      },
-                      {
-                        label: "Average Benefits",
-                        data: categories.map((category) => {
-                          const catSales = sales.filter(
-                            (sale) => sale.category === category
-                          );
-                          return catSales.length
-                            ? catSales.reduce(
-                                (sum, sale) =>
-                                  sum + (sale.benefit ?? sale.benefits ?? 0),
-                                0
-                              ) / catSales.length
-                            : 0;
-                        }),
-                        backgroundColor: "#66bb6a",
-                      },
-                    ],
-                  }}
-                  options={{
-                    responsive: true,
-                    plugins: { legend: { position: "top" } },
-                    scales: { y: { beginAtZero: true } },
-                  }}
-                />
-                <Doughnut
-                  data={{
-                    labels: categories,
-                    datasets: [
-                      {
-                        data: priceData,
-                        backgroundColor: [
-                          "#ff6384",
-                          "#36a2eb",
-                          "#cc65fe",
-                          "#ffce56",
-                          "#66bb6a",
-                          "#ffa726",
-                          "#ab47bc",
-                          "#26a69a",
-                        ],
-                      },
-                    ],
-                  }}
-                  options={{
-                    responsive: true,
-                    plugins: { legend: { position: "bottom" } },
-                  }}
-                />
-                <Line
-                  data={{
-                    labels: salesPerMinute.map((d) => d.minute),
-                    datasets: [
-                      {
-                        label: "Price per minute",
-                        data: salesPerMinute.map((d) => d.price),
-                        fill: false,
-                        borderColor: "#42a5f5",
-                        backgroundColor: "#42a5f5",
-                        tension: 0.2,
-                      },
-                      {
-                        label: "Benefits per minute",
-                        data: salesPerMinute.map((d) => d.benefit),
-                        fill: false,
-                        borderColor: "#66bb6a",
-                        backgroundColor: "#66bb6a",
-                        tension: 0.2,
-                      },
-                    ],
-                  }}
-                  options={{
-                    responsive: true,
-                    plugins: { legend: { position: "top" } },
-                    scales: {
-                      x: {
-                        title: { display: true, text: "Minute" },
-                        ticks: { autoSkip: true, maxTicksLimit: 10 },
-                      },
-                      y: {
-                        beginAtZero: true,
-                        title: { display: true, text: "Amount" },
-                      },
-                    },
-                  }}
-                />
-              </AlignedContainer>
-            </>
-          }
-        />
 
         <MainContainer
           children={
@@ -429,26 +314,6 @@ export default function App() {
                 }}
               />
               <AlignedContainer>
-                <Doughnut
-                  data={{
-                    labels: filteredShops,
-                    datasets: [
-                      {
-                        data: priceByShop,
-                        backgroundColor: [
-                          "#ff6384",
-                          "#36a2eb",
-                          "#cc65fe",
-                          "#ffce56",
-                        ],
-                      },
-                    ],
-                  }}
-                  options={{
-                    responsive: true,
-                    plugins: { legend: { position: "bottom" } },
-                  }}
-                />
                 <Doughnut
                   data={{
                     labels: filteredShops,
@@ -552,7 +417,6 @@ export default function App() {
             </>
           }
         />
-
         <MainContainer
           children={
             <>
@@ -743,6 +607,14 @@ export default function App() {
           }
         />
       </div>
+      <MainContainer
+        children={
+          <>
+            <h1 style={{ marginBottom: "1rem" }}>Global Sales Records</h1>
+            <SalesList />
+          </>
+        }
+      />
     </SalesStatsContext.Provider>
   );
 }
